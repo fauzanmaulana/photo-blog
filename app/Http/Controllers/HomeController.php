@@ -133,4 +133,39 @@ class HomeController extends Controller
         $pesanan->save();
         return redirect()->back()->with('message', "Pembayaran berhasil, Mohon tunggu konfirmasi dari author");
     }
+
+    public function updateblog($id)
+    {
+        $tema = tema::all();
+        $blog = portfolio::find($id);
+        return view('blogupd', ['blog'=>$blog, 'tema'=>$tema]);
+    }
+
+    public function postupdateblog(Request $req, $id)
+    {
+        $blog = portfolio::find($id);
+        $image = $req->file('gambardepan');
+        if(!$image){
+            $blog->judul = $req->judul;
+            $blog->tema_id = $req->tema;
+            $blog->deskripsi = $req->deskripsi;
+            $blog->save();
+            return redirect('blog/my')->with('message', 'berhasil update blog');
+        }
+        $name_file = $image->getClientOriginalName();
+        $image->move(base_path('/public/assets/fotopesanan'), $name_file);
+        $blog->judul = $req->judul;
+        $blog->gambar_depan = $name_file;
+        $blog->tema_id = $req->tema;
+        $blog->deskripsi = $req->deskripsi;
+        $blog->save();
+        return redirect('blog/my')->with('message', 'berhasil update blog');
+    }
+
+    public function hapusblog($id)
+    {
+        $blog = portfolio::find($id);
+        $blog->delete();
+        return redirect('blog/my')->with('message', 'berhasil delete blog');
+    }
 }

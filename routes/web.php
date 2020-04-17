@@ -22,6 +22,9 @@ Route::get('/blog', 'HomeController@blog');
 Route::get('/blog/my', 'HomeController@blogsaya');
 Route::get('blog/{id}', 'HomeController@detailblog')->name('detail');
 Route::post('/blog/create', 'HomeController@createblog');
+Route::get('/blog/update/{id}', 'HomeController@updateblog')->name('blogupdate');
+Route::post('/blog/update/post/{id}', 'HomeController@postupdateblog');
+Route::get('/blog/hapus/{id}', 'HomeController@hapusblog')->name('bloghapus');
 
 Route::post('/tema', 'HomeController@pilihtema');
 Route::post('/pesan/{portfolioid}/{authorid}', 'HomeController@prosespesan');
