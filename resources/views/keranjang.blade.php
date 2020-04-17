@@ -2,6 +2,9 @@
 
 @section('content')
 <div class="container">
+    @if(session('message'))
+      <div class="alert alert-success" role="alert">{{session('message')}}</div>
+    @endif
     <table class="table table-hover">
         <thead>
             <tr>
@@ -23,7 +26,13 @@
                 @if($pesan->bukti)
                     <td><img src="{{asset('assets/fotopesanan/'.$pesan->bukti)}}" alt="bukti" width="180"></td>
                 @else
-                    <td><form action="" method="post" enctype="multipart/form-data"><input type="file" class="form-control-file" name="bayar"></form></td>
+                    <td>
+                        <form action="/bayarnanti/{{$pesan->id}}" class="d-flex" method="post" enctype="multipart/form-data">
+                        @csrf
+                            <input type="file" class="form-control-file" name="bayar">
+                            <button class="btn btn-sm btn-outline-success">Bayar</button>
+                        </form>
+                    </td>
                 @endif
                 <td>{{$pesan->pesan}}</td>
                 <td><?= ($pesan->status) ? "<p class='bg-success text-white'>Dikonfirmasi</p>" : "<p class='bg-warning'>Belum Dikonfirmasi</p>" ?></td>

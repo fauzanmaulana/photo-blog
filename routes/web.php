@@ -29,3 +29,5 @@ Route::post('/pesan/{portfolioid}/{authorid}', 'HomeController@prosespesan');
 Route::get('/keranjang', 'HomeController@keranjang');
 Route::get('/pesanan', 'HomeController@pesanan');
 Route::get('/konfirmasipembayaran/{id}', 'HomeController@konfirmasipembayaran');
+
+Route::post('/bayarnanti/{id}', 'HomeController@bayarnanti');

@@ -122,4 +122,15 @@ class HomeController extends Controller
             return redirect()->back()->with('message', "Pembayaran berhasil Dibatalkan");
         }
     }
+
+    public function bayarnanti(Request $req, $id)
+    {
+        $image = $req->file('bayar');
+        $name_file = $image->getClientOriginalName();
+        $image->move(base_path('/public/assets/fotopesanan'), $name_file);
+        $pesanan = pesanan::find($id);
+        $pesanan->bukti = $name_file;
+        $pesanan->save();
+        return redirect()->back()->with('message', "Pembayaran berhasil, Mohon tunggu konfirmasi dari author");
+    }
 }
